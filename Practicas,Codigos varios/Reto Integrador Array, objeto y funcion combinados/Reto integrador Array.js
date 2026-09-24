@@ -15,5 +15,8 @@ function mostrarProducto(nombre, precio){
      return nombre + " cuesta $" + precio;
 };
 
-let mensaje = mostrarProducto(productos[0], producto.precio);
+let mensaje = mostrarProducto("El producto es: " + productos[0], producto.precio);
+console.log("Buen dia, bienvenido a productosbelleza.com")
+console.log ("Que producto deseas: " 
+    + productos)
 console.log(mensaje);
