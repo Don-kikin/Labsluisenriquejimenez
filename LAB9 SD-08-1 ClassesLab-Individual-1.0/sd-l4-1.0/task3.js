@@ -1,7 +1,10 @@
 export class Player {
-    constructor() {
-      
-    }
-  
-    
+  constructor(player, level) {
+    this.name = player;
+    this.level = level;
   }
+  
+  info() {
+    return this.name + ' has reached Level ' + this.level + '!';
+  }
+}

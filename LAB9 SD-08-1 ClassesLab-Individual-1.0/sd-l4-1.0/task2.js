@@ -1,7 +1,9 @@
 export class Player {
-    constructor() {
-      
+    constructor( Player,level ) {
+      this.name = Player;
+      this.level = level;
     }
-  
-    
+  mostrarInfo (){
+    return this.name + this.level
   }
+}
