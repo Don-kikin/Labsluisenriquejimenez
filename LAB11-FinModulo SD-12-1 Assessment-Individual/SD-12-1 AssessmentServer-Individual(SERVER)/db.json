@@ -23,12 +23,6 @@
       "first_name": "Olivia",
       "last_name": "Brown",
       "email": "olibrown432@example.net"
-    },
-    {
-      "id": 5,
-      "first_name": "Alex",
-      "last_name": "Chen",
-      "email": "achen12@example.net"
     }
   ]
 }
