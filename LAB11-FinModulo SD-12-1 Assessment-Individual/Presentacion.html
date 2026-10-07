@@ -3,63 +3,3211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario B2B</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>B2B Connect | Abastece tu negocio</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
     <style>
-        body { font-family: 'Arial', sans-serif; }
-        .hero { background-color: #0d6efd; color: white; padding: 50px 0; text-align: center; }
-        .feature-icon { font-size: 2rem; color: #0d6efd; }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        /* NAVBAR */
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0d6efd, #084298);
+            color: white;
+            padding: 70px 0 80px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .search-box {
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            max-width: 850px;
+            margin: 35px auto 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,.15);
+        }
+
+        .search-box input {
+            border: none;
+            box-shadow: none !important;
+        }
+
+        /* CATEGORÍAS */
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            height: 100%;
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,.10);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        /* PRODUCTOS */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+            border: 1px solid #eee;
+            transition: .2s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,.10);
+        }
+
+        .product-image {
+            height: 180px;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+
+        .supplier {
+            font-size: .9rem;
+            color: #777;
+        }
+
+        /* BENEFICIOS */
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            height: 100%;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+        }
+
+        /* CTA */
+        .cta {
+            background-color: #212529;
+            color: white;
+            padding: 60px 0;
+        }
+
+        footer {
+            background-color: #111;
+            color: #aaa;
+            padding: 30px 0;
+        }
     </style>
 </head>
+
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">📦 B2B Connect</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#">
+            📦 B2B Connect
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#categorias">
+                        Categorías
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#productos">
+                        Productos
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#proveedores">
+                        Proveedores
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#carrito">
+                        🛒 Carrito
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-3">
+                    <a class="btn btn-primary" href="#">
+                        Iniciar sesión
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     HERO / BUSCADOR
+========================= -->
+
+<section class="hero">
+
+    <div class="container text-center">
+
+        <h1>
+            Abastece tu negocio de forma inteligente
+        </h1>
+
+        <p class="lead mt-3">
+            Encuentra productos, compara proveedores y realiza
+            tus pedidos de abastecimiento desde un solo lugar.
+        </p>
+
+
+        <!-- BUSCADOR -->
+
+        <div class="search-box">
+
+            <div class="row g-2 align-items-center">
+
+                <div class="col-md-8">
+
+                    <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        placeholder="¿Qué producto necesitas?"
+                    >
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <button
+                        class="btn btn-primary btn-lg w-100"
+                        onclick="buscarProductos()"
+                    >
+                        🔎 Buscar productos
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-4">
+
+            <button class="btn btn-light btn-lg me-2">
+                Explorar catálogo
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Acerca de Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-2" href="#">Login / Registro</a></li>
+
+            <button class="btn btn-outline-light btn-lg">
+                Soy proveedor
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CATEGORÍAS
+========================= -->
+
+<section id="categorias" class="py-5">
+
+    <div class="container">
+
+        <h2 class="text-center fw-bold mb-2">
+            Compra por categoría
+        </h2>
+
+        <p class="text-center text-muted mb-5">
+            Encuentra rápidamente los productos que necesita tu negocio.
+        </p>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        🥤
+                    </div>
+
+                    <h5>Bebidas</h5>
+
+                    <p class="text-muted">
+                        Refrescos, agua, jugos y bebidas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        🍪
+                    </div>
+
+                    <h5>Abarrotes</h5>
+
+                    <p class="text-muted">
+                        Productos básicos para tu negocio.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        🧹
+                    </div>
+
+                    <h5>Limpieza</h5>
+
+                    <p class="text-muted">
+                        Productos de limpieza y mantenimiento.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <div class="category-card">
+
+                    <div class="category-icon">
+                        📦
+                    </div>
+
+                    <h5>Empaque</h5>
+
+                    <p class="text-muted">
+                        Bolsas, cajas y materiales para tu negocio.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PRODUCTOS DESTACADOS
+========================= -->
+
+<section id="productos" class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <div>
+
+                <h2 class="fw-bold mb-1">
+                    Productos destacados
+                </h2>
+
+                <p class="text-muted mb-0">
+                    Compara precios y proveedores antes de comprar.
+                </p>
+
+            </div>
+
+            <a href="#" class="btn btn-outline-primary">
+                Ver catálogo completo
+            </a>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCTO 1 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🥤
+                    </div>
+
+                    <div class="product-content">
+
+                        <span class="badge bg-success mb-2">
+                            Disponible
+                        </span>
+
+                        <h5>
+                            Refresco 600 ml
+                        </h5>
+
+                        <p class="supplier">
+                            Proveedor: Distribuidora MX
+                        </p>
+
+                        <div class="price">
+                            $12.50
+                        </div>
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito('Refresco 600 ml', 12.50)"
+                        >
+                            🛒 Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTO 2 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🍪
+                    </div>
+
+                    <div class="product-content">
+
+                        <span class="badge bg-success mb-2">
+                            Disponible
+                        </span>
+
+                        <h5>
+                            Galletas surtidas
+                        </h5>
+
+                        <p class="supplier">
+                            Proveedor: Comercializadora ABC
+                        </p>
+
+                        <div class="price">
+                            $85.00
+                        </div>
+
+                        <small class="text-muted">
+                            Caja con 12 piezas
+                        </small>
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito('Galletas surtidas', 85)"
+                        >
+                            🛒 Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTO 3 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🧴
+                    </div>
+
+                    <div class="product-content">
+
+                        <span class="badge bg-success mb-2">
+                            Disponible
+                        </span>
+
+                        <h5>
+                            Detergente 1 L
+                        </h5>
+
+                        <p class="supplier">
+                            Proveedor: Limpieza Express
+                        </p>
+
+                        <div class="price">
+                            $38.00
+                        </div>
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito('Detergente 1 L', 38)"
+                        >
+                            🛒 Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCTO 4 -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        📦
+                    </div>
+
+                    <div class="product-content">
+
+                        <span class="badge bg-warning text-dark mb-2">
+                            Últimas piezas
+                        </span>
+
+                        <h5>
+                            Caja para envío
+                        </h5>
+
+                        <p class="supplier">
+                            Proveedor: Empaques del Centro
+                        </p>
+
+                        <div class="price">
+                            $9.50
+                        </div>
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito('Caja para envío', 9.50)"
+                        >
+                            🛒 Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BENEFICIOS
+========================= -->
+
+<section id="proveedores" class="py-5">
+
+    <div class="container">
+
+        <h2 class="text-center fw-bold mb-5">
+            Todo lo que necesitas para abastecer tu negocio
+        </h2>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔎
+                    </div>
+
+                    <h4>
+                        Compara proveedores
+                    </h4>
+
+                    <p class="text-muted">
+                        Consulta diferentes proveedores,
+                        precios y productos antes de realizar
+                        tu pedido.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h4>
+                        Controla tu inventario
+                    </h4>
+
+                    <p class="text-muted">
+                        Identifica productos con bajo inventario
+                        y planifica tus compras de abastecimiento.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="feature-card">
+
+                    <div class="feature-icon">
+                        🔔
+                    </div>
+
+                    <h4>
+                        Recibe alertas
+                    </h4>
+
+                    <p class="text-muted">
+                        Obtén notificaciones cuando sea necesario
+                        reabastecer productos.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     CARRITO / PEDIDO
+========================= -->
+
+<section id="carrito" class="py-5 bg-light">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <h2 class="fw-bold">
+                    Tu pedido de abastecimiento
+                </h2>
+
+                <p class="text-muted">
+                    Agrega productos de diferentes proveedores
+                    y revisa tu pedido antes de confirmar.
+                </p>
+
+                <ul class="list-group">
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Productos agregados</span>
+                        <strong id="cantidadCarrito">0</strong>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total estimado</span>
+                        <strong id="totalCarrito">$0.00</strong>
+                    </li>
+
                 </ul>
-            </div>
-        </div>
-    </nav>
 
-    <div class="hero">
-        <div class="container">
-            <h1 class="display-4">La conexión directa entre tu negocio y los mejores proveedores</h1>
-            <p class="lead">Controla tu inventario, compara precios y abastece tu tienda en un solo lugar.</p>
-            <a href="#" class="btn btn-light btn-lg mt-3">Ver Catálogo</a>
-            <a href="#" class="btn btn-outline-light btn-lg mt-3 ms-2">Soy Proveedor</a>
+            </div>
+
+
+            <div class="col-lg-5 mt-4 mt-lg-0">
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-body p-4">
+
+                        <h4 class="fw-bold">
+                            🛒 Carrito
+                        </h4>
+
+                        <p class="text-muted">
+                            Revisa los productos seleccionados
+                            antes de continuar.
+                        </p>
+
+                        <button
+                            class="btn btn-primary w-100"
+                            onclick="verCarrito()"
+                        >
+                            Revisar pedido
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+
     </div>
 
-    <div class="container my-5">
-        <div class="row text-center">
-            <div class="col-md-4 mb-4">
-                <div class="feature-icon mb-3">🛒</div>
-                <h3>Para Negocios</h3>
-                <p>Abastece tu local fácilmente. Compara calidad, precios y tiempos de entrega de diferentes distribuidores.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="feature-icon mb-3">📈</div>
-                <h3>Para Proveedores</h3>
-                <p>Sube tu catálogo, gestiona tus productos en tiempo real y llega a más tiendas locales.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="feature-icon mb-3">🔔</div>
-                <h3>Alertas Inteligentes</h3>
-                <p>Recibe notificaciones automáticas cuando tu inventario esté bajo para que nunca te quedes sin stock.</p>
-            </div>
-        </div>
+</section>
+
+
+<!-- =========================
+     CTA PROVEEDORES
+========================= -->
+
+<section class="cta">
+
+    <div class="container text-center">
+
+        <h2 class="fw-bold">
+            ¿Eres proveedor?
+        </h2>
+
+        <p class="lead">
+            Publica tus productos y llega a nuevos negocios.
+        </p>
+
+        <button class="btn btn-light btn-lg">
+            Registrar mi negocio como proveedor
+        </button>
+
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <h5 class="text-white">
+                    📦 B2B Connect
+                </h5>
+
+                <p>
+                    Plataforma digital para conectar negocios
+                    con proveedores y facilitar el abastecimiento.
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <h6 class="text-white">
+                    Plataforma
+                </h6>
+
+                <p>Catálogo</p>
+                <p>Proveedores</p>
+                <p>Pedidos</p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <h6 class="text-white">
+                    Cuenta
+                </h6>
+
+                <p>Iniciar sesión</p>
+                <p>Registrarse</p>
+                <p>Mis pedidos</p>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        <p class="text-center mb-0">
+            © 2026 B2B Connect. Proyecto académico.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+    let carrito = JSON.parse(
+        localStorage.getItem("carritoB2B")
+    ) || [];
+
+
+    function agregarCarrito(nombre, precio) {
+
+        carrito.push({
+            nombre: nombre,
+            precio: precio
+        });
+
+        localStorage.setItem(
+            "carritoB2B",
+            JSON.stringify(carrito)
+        );
+
+        actualizarCarrito();
+
+        alert(
+            nombre + " fue agregado al carrito."
+        );
+    }
+
+
+    function actualizarCarrito() {
+
+        let total = 0;
+
+        carrito.forEach(producto => {
+            total += producto.precio;
+        });
+
+        document.getElementById(
+            "cantidadCarrito"
+        ).innerText = carrito.length;
+
+        document.getElementById(
+            "totalCarrito"
+        ).innerText =
+            "$" + total.toFixed(2);
+    }
+
+
+    function buscarProductos() {
+
+        const texto =
+            document.querySelector(
+                ".search-box input"
+            ).value;
+
+        if (texto.trim() === "") {
+
+            alert(
+                "Ingresa el nombre del producto que deseas buscar."
+            );
+
+            return;
+        }
+
+        alert(
+            "Buscando productos relacionados con: " +
+            texto
+        );
+
+        /*
+            Posteriormente aquí se realizará
+            la consulta GET a la API.
+        */
+    }
+
+
+    function verCarrito() {
+
+        if (carrito.length === 0) {
+
+            alert(
+                "Tu carrito está vacío."
+            );
+
+            return;
+        }
+
+        let mensaje =
+            "PRODUCTOS EN TU PEDIDO:\n\n";
+
+        carrito.forEach((producto, index) => {
+
+            mensaje +=
+                (index + 1) +
+                ". " +
+                producto.nombre +
+                " - $" +
+                producto.precio.toFixed(2) +
+                "\n";
+
+        });
+
+        alert(mensaje);
+    }
+
+
+    actualizarCarrito();
+
+</script>
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
 </body>
+</html>```html
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        B2B Connect | Plataforma de abastecimiento empresarial
+    </title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+
+    <style>
+
+        :root {
+            --primary: #1769aa;
+            --primary-dark: #0d4775;
+            --secondary: #f4f7fa;
+            --dark: #17212b;
+            --text: #4f5d6b;
+            --border: #e5e9ed;
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Arial,
+                sans-serif;
+
+            color: var(--dark);
+
+            background-color: #ffffff;
+
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid var(--border);
+
+            padding: 15px 0;
+
+        }
+
+
+        .navbar-brand {
+
+            font-size: 1.45rem;
+
+            font-weight: 800;
+
+            color:
+                var(--primary) !important;
+
+        }
+
+
+        .navbar-brand span {
+
+            color: var(--dark);
+
+        }
+
+
+        .nav-link {
+
+            color:
+                #475569 !important;
+
+            font-weight: 500;
+
+            margin-left: 12px;
+
+        }
+
+
+        .nav-link:hover {
+
+            color:
+                var(--primary) !important;
+
+        }
+
+
+        .btn-primary {
+
+            background:
+                var(--primary);
+
+            border-color:
+                var(--primary);
+
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                var(--primary-dark);
+
+            border-color:
+                var(--primary-dark);
+
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f9fd 0%,
+                    #ffffff 60%
+                );
+
+            padding:
+                90px 0 80px;
+
+        }
+
+
+        .hero-badge {
+
+            display:
+                inline-block;
+
+            background:
+                #e7f2fb;
+
+            color:
+                var(--primary);
+
+            padding:
+                8px 16px;
+
+            border-radius:
+                50px;
+
+            font-size:
+                .9rem;
+
+            font-weight:
+                600;
+
+            margin-bottom:
+                20px;
+
+        }
+
+
+        .hero h1 {
+
+            font-size:
+                clamp(2.3rem, 5vw, 4rem);
+
+            line-height:
+                1.1;
+
+            font-weight:
+                800;
+
+            max-width:
+                800px;
+
+        }
+
+
+        .hero h1 span {
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .hero-text {
+
+            color:
+                var(--text);
+
+            font-size:
+                1.15rem;
+
+            line-height:
+                1.7;
+
+            max-width:
+                700px;
+
+            margin:
+                20px auto 0;
+
+        }
+
+
+        /* =========================
+           BUSCADOR
+        ========================= */
+
+        .search-container {
+
+            max-width:
+                850px;
+
+            margin:
+                35px auto 0;
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            padding:
+                8px;
+
+            box-shadow:
+                0 10px 35px rgba(0,0,0,.08);
+
+        }
+
+
+        .search-container input {
+
+            border:
+                none;
+
+            box-shadow:
+                none;
+
+            padding:
+                15px;
+
+        }
+
+
+        .search-container button {
+
+            padding:
+                14px 25px;
+
+        }
+
+
+        /* =========================
+           ESTADÍSTICAS
+        ========================= */
+
+        .stats {
+
+            margin-top:
+                50px;
+
+        }
+
+
+        .stat {
+
+            padding:
+                10px 25px;
+
+            border-right:
+                1px solid var(--border);
+
+        }
+
+
+        .stat:last-child {
+
+            border-right:
+                none;
+
+        }
+
+
+        .stat strong {
+
+            display:
+                block;
+
+            font-size:
+                1.6rem;
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .stat small {
+
+            color:
+                var(--text);
+
+        }
+
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        .section {
+
+            padding:
+                80px 0;
+
+        }
+
+
+        .section-light {
+
+            background:
+                var(--secondary);
+
+        }
+
+
+        .section-title {
+
+            font-size:
+                2.2rem;
+
+            font-weight:
+                750;
+
+            margin-bottom:
+                10px;
+
+        }
+
+
+        .section-description {
+
+            color:
+                var(--text);
+
+            max-width:
+                650px;
+
+        }
+
+
+        /* =========================
+           CATEGORÍAS
+        ========================= */
+
+        .category-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            padding:
+                30px 20px;
+
+            height:
+                100%;
+
+            transition:
+                .25s;
+
+            cursor:
+                pointer;
+
+        }
+
+
+        .category-card:hover {
+
+            transform:
+                translateY(-5px);
+
+            border-color:
+                #c7ddec;
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,.07);
+
+        }
+
+
+        .category-icon {
+
+            width:
+                60px;
+
+            height:
+                60px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                #edf6fc;
+
+            color:
+                var(--primary);
+
+            border-radius:
+                12px;
+
+            font-size:
+                1.8rem;
+
+            margin:
+                0 auto 20px;
+
+        }
+
+
+        .category-card h5 {
+
+            font-weight:
+                700;
+
+        }
+
+
+        .category-card p {
+
+            color:
+                var(--text);
+
+            font-size:
+                .92rem;
+
+        }
+
+
+        /* =========================
+           PRODUCTOS
+        ========================= */
+
+        .product-card {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            overflow:
+                hidden;
+
+            height:
+                100%;
+
+            transition:
+                .25s;
+
+        }
+
+
+        .product-card:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,.08);
+
+        }
+
+
+        .product-image {
+
+            height:
+                170px;
+
+            background:
+                #f3f6f8;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                4rem;
+
+        }
+
+
+        .product-content {
+
+            padding:
+                22px;
+
+        }
+
+
+        .supplier {
+
+            font-size:
+                .85rem;
+
+            color:
+                #7b8794;
+
+        }
+
+
+        .price {
+
+            font-size:
+                1.35rem;
+
+            font-weight:
+                800;
+
+            color:
+                var(--primary);
+
+        }
+
+
+        /* =========================
+           BENEFICIOS
+        ========================= */
+
+        .benefit {
+
+            padding:
+                25px;
+
+        }
+
+
+        .benefit-icon {
+
+            width:
+                55px;
+
+            height:
+                55px;
+
+            border-radius:
+                10px;
+
+            background:
+                #edf6fc;
+
+            color:
+                var(--primary);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                1.5rem;
+
+            margin-bottom:
+                18px;
+
+        }
+
+
+        .benefit h4 {
+
+            font-size:
+                1.2rem;
+
+            font-weight:
+                700;
+
+        }
+
+
+        .benefit p {
+
+            color:
+                var(--text);
+
+            line-height:
+                1.6;
+
+        }
+
+
+        /* =========================
+           PROVEEDORES
+        ========================= */
+
+        .supplier-section {
+
+            background:
+                var(--dark);
+
+            color:
+                #ffffff;
+
+        }
+
+
+        .supplier-section p {
+
+            color:
+                #b7c2cc;
+
+        }
+
+
+        /* =========================
+           CARRITO
+        ========================= */
+
+        .cart-box {
+
+            background:
+                #ffffff;
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                14px;
+
+            padding:
+                30px;
+
+            box-shadow:
+                0 8px 25px rgba(0,0,0,.05);
+
+        }
+
+
+        .cart-total {
+
+            font-size:
+                1.5rem;
+
+            font-weight:
+                800;
+
+            color:
+                var(--primary);
+
+        }
+
+
+        /* =========================
+           CONTACTO
+        ========================= */
+
+        .contact-card {
+
+            border:
+                1px solid var(--border);
+
+            border-radius:
+                12px;
+
+            padding:
+                25px;
+
+            height:
+                100%;
+
+        }
+
+
+        .contact-card i {
+
+            font-size:
+                1.5rem;
+
+            color:
+                var(--primary);
+
+            margin-right:
+                10px;
+
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+
+            background:
+                #111820;
+
+            color:
+                #aeb8c2;
+
+            padding:
+                50px 0 25px;
+
+        }
+
+
+        footer h5 {
+
+            color:
+                #ffffff;
+
+        }
+
+
+        footer a {
+
+            color:
+                #aeb8c2;
+
+            text-decoration:
+                none;
+
+        }
+
+
+        footer a:hover {
+
+            color:
+                #ffffff;
+
+        }
+
+
+        .footer-bottom {
+
+            border-top:
+                1px solid #29323b;
+
+            margin-top:
+                35px;
+
+            padding-top:
+                20px;
+
+            font-size:
+                .85rem;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 768px) {
+
+            .hero {
+
+                padding:
+                    60px 0;
+
+            }
+
+
+            .stats .stat {
+
+                border-right:
+                    none;
+
+                border-bottom:
+                    1px solid var(--border);
+
+                padding:
+                    15px;
+
+            }
+
+
+            .stats .stat:last-child {
+
+                border-bottom:
+                    none;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar navbar-expand-lg sticky-top">
+
+    <div class="container">
+
+        <a class="navbar-brand" href="#">
+            B2B <span>Connect</span>
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="navbarNav"
+        >
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Inicio
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#categorias"
+                    >
+                        Categorías
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#productos"
+                    >
+                        Catálogo
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#proveedores"
+                    >
+                        Proveedores
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#contacto"
+                    >
+                        Contacto
+                    </a>
+                </li>
+
+                <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
+
+                    <a
+                        href="#"
+                        class="btn btn-primary"
+                    >
+                        Iniciar sesión
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero">
+
+    <div class="container text-center">
+
+        <div class="hero-badge">
+
+            <i class="bi bi-building"></i>
+
+            Plataforma B2B para negocios
+
+        </div>
+
+
+        <h1>
+
+            Simplifica el
+            <span>abastecimiento</span>
+            de tu negocio
+
+        </h1>
+
+
+        <p class="hero-text">
+
+            Encuentra productos, compara proveedores,
+            controla tus compras y gestiona tu inventario
+            desde una sola plataforma.
+
+        </p>
+
+
+        <!-- BUSCADOR -->
+
+        <div class="search-container">
+
+            <div class="row g-2">
+
+                <div class="col-md-8">
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        class="form-control form-control-lg"
+                        placeholder="Busca productos o categorías..."
+                    >
+
+                </div>
+
+
+                <div class="col-md-4">
+
+                    <button
+                        class="btn btn-primary btn-lg w-100"
+                        onclick="buscarProductos()"
+                    >
+
+                        <i class="bi bi-search"></i>
+
+                        Buscar productos
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="mt-4">
+
+            <a
+                href="#productos"
+                class="btn btn-primary btn-lg me-2"
+            >
+                Explorar catálogo
+            </a>
+
+
+            <a
+                href="#proveedores"
+                class="btn btn-outline-secondary btn-lg"
+            >
+                Soy proveedor
+            </a>
+
+        </div>
+
+
+        <!-- ESTADÍSTICAS -->
+
+        <div class="row justify-content-center stats">
+
+            <div class="col-4 col-md-3 stat">
+
+                <strong>
+                    +500
+                </strong>
+
+                <small>
+                    Productos
+                </small>
+
+            </div>
+
+
+            <div class="col-4 col-md-3 stat">
+
+                <strong>
+                    +50
+                </strong>
+
+                <small>
+                    Proveedores
+                </small>
+
+            </div>
+
+
+            <div class="col-4 col-md-3 stat">
+
+                <strong>
+                    24/7
+                </strong>
+
+                <small>
+                    Plataforma
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CATEGORÍAS
+===================================================== -->
+
+<section
+    id="categorias"
+    class="section"
+>
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                Encuentra lo que necesitas
+            </h2>
+
+            <p class="section-description mx-auto">
+                Explora las principales categorías de productos
+                disponibles para abastecer tu negocio.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="category-card text-center">
+
+                    <div class="category-icon">
+
+                        <i class="bi bi-cup-straw"></i>
+
+                    </div>
+
+                    <h5>
+                        Bebidas
+                    </h5>
+
+                    <p>
+                        Refrescos, agua, jugos y más.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="category-card text-center">
+
+                    <div class="category-icon">
+
+                        <i class="bi bi-basket"></i>
+
+                    </div>
+
+                    <h5>
+                        Abarrotes
+                    </h5>
+
+                    <p>
+                        Productos esenciales para tu negocio.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="category-card text-center">
+
+                    <div class="category-icon">
+
+                        <i class="bi bi-droplet"></i>
+
+                    </div>
+
+                    <h5>
+                        Limpieza
+                    </h5>
+
+                    <p>
+                        Productos para limpieza y mantenimiento.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="category-card text-center">
+
+                    <div class="category-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+                    <h5>
+                        Empaque
+                    </h5>
+
+                    <p>
+                        Cajas, bolsas y materiales.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTOS
+===================================================== -->
+
+<section
+    id="productos"
+    class="section section-light"
+>
+
+    <div class="container">
+
+        <div class="d-flex
+                    justify-content-between
+                    align-items-center
+                    mb-5">
+
+            <div>
+
+                <h2 class="section-title">
+                    Productos destacados
+                </h2>
+
+                <p class="section-description mb-0">
+                    Compara precios y proveedores antes
+                    de realizar tu pedido.
+                </p>
+
+            </div>
+
+
+            <button
+                class="btn btn-outline-primary d-none d-md-block"
+            >
+                Ver catálogo
+            </button>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCTO -->
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🥤
+                    </div>
+
+
+                    <div class="product-content">
+
+                        <span
+                            class="badge bg-success mb-2"
+                        >
+                            Disponible
+                        </span>
+
+
+                        <h5>
+                            Refresco 600 ml
+                        </h5>
+
+
+                        <p class="supplier">
+                            <i class="bi bi-shop"></i>
+                            Distribuidora MX
+                        </p>
+
+
+                        <div class="price">
+                            $12.50 MXN
+                        </div>
+
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito(
+                                'Refresco 600 ml',
+                                12.50
+                            )"
+                        >
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Agregar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🍪
+                    </div>
+
+
+                    <div class="product-content">
+
+                        <span
+                            class="badge bg-success mb-2"
+                        >
+                            Disponible
+                        </span>
+
+
+                        <h5>
+                            Galletas surtidas
+                        </h5>
+
+
+                        <p class="supplier">
+                            <i class="bi bi-shop"></i>
+                            Comercializadora ABC
+                        </p>
+
+
+                        <div class="price">
+                            $85.00 MXN
+                        </div>
+
+
+                        <small class="text-muted">
+                            Caja con 12 piezas
+                        </small>
+
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito(
+                                'Galletas surtidas',
+                                85
+                            )"
+                        >
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Agregar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        🧴
+                    </div>
+
+
+                    <div class="product-content">
+
+                        <span
+                            class="badge bg-success mb-2"
+                        >
+                            Disponible
+                        </span>
+
+
+                        <h5>
+                            Detergente 1 L
+                        </h5>
+
+
+                        <p class="supplier">
+                            <i class="bi bi-shop"></i>
+                            Limpieza Express
+                        </p>
+
+
+                        <div class="price">
+                            $38.00 MXN
+                        </div>
+
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito(
+                                'Detergente 1 L',
+                                38
+                            )"
+                        >
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Agregar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="product-card">
+
+                    <div class="product-image">
+                        📦
+                    </div>
+
+
+                    <div class="product-content">
+
+                        <span
+                            class="badge bg-warning text-dark mb-2"
+                        >
+                            Últimas piezas
+                        </span>
+
+
+                        <h5>
+                            Caja para envío
+                        </h5>
+
+
+                        <p class="supplier">
+                            <i class="bi bi-shop"></i>
+                            Empaques del Centro
+                        </p>
+
+
+                        <div class="price">
+                            $9.50 MXN
+                        </div>
+
+
+                        <small class="text-muted">
+                            Precio por pieza
+                        </small>
+
+
+                        <button
+                            class="btn btn-primary w-100 mt-3"
+                            onclick="agregarCarrito(
+                                'Caja para envío',
+                                9.50
+                            )"
+                        >
+
+                            <i class="bi bi-cart-plus"></i>
+
+                            Agregar
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     BENEFICIOS
+===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                Una plataforma pensada para tu negocio
+            </h2>
+
+            <p class="section-description mx-auto">
+                Centraliza el proceso de compra y toma
+                mejores decisiones de abastecimiento.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+
+                        <i class="bi bi-bar-chart"></i>
+
+                    </div>
+
+                    <h4>
+                        Compara proveedores
+                    </h4>
+
+                    <p>
+                        Consulta diferentes opciones de
+                        proveedores y compara precios antes
+                        de realizar tus compras.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+
+                        <i class="bi bi-boxes"></i>
+
+                    </div>
+
+                    <h4>
+                        Controla tu inventario
+                    </h4>
+
+                    <p>
+                        Mantén una visión clara de tus productos
+                        y detecta cuándo necesitas reabastecer.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+
+                        <i class="bi bi-bell"></i>
+
+                    </div>
+
+                    <h4>
+                        Alertas inteligentes
+                    </h4>
+
+                    <p>
+                        Recibe alertas cuando determinados
+                        productos alcancen niveles bajos de inventario.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PROVEEDORES
+===================================================== -->
+
+<section
+    id="proveedores"
+    class="section supplier-section"
+>
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-7">
+
+                <span class="badge bg-light text-dark mb-3">
+                    PARA PROVEEDORES
+                </span>
+
+
+                <h2 class="display-6 fw-bold">
+
+                    Lleva tus productos
+                    a nuevos negocios
+
+                </h2>
+
+
+                <p class="lead mt-3">
+
+                    Publica tu catálogo, administra tus productos
+                    y recibe oportunidades de venta desde
+                    una plataforma centralizada.
+
+                </p>
+
+
+                <button
+                    class="btn btn-light btn-lg mt-3"
+                >
+
+                    Registrar mi empresa
+
+                </button>
+
+            </div>
+
+
+            <div class="col-lg-5 mt-4 mt-lg-0">
+
+                <div class="row g-3">
+
+                    <div class="col-6">
+
+                        <div class="p-4
+                                    bg-white
+                                    text-dark
+                                    rounded">
+
+                            <i class="bi bi-upload fs-2"></i>
+
+                            <h6 class="mt-3">
+                                Publica productos
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="p-4
+                                    bg-white
+                                    text-dark
+                                    rounded">
+
+                            <i class="bi bi-pencil-square fs-2"></i>
+
+                            <h6 class="mt-3">
+                                Administra catálogo
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="p-4
+                                    bg-white
+                                    text-dark
+                                    rounded">
+
+                            <i class="bi bi-receipt fs-2"></i>
+
+                            <h6 class="mt-3">
+                                Gestiona pedidos
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="col-6">
+
+                        <div class="p-4
+                                    bg-white
+                                    text-dark
+                                    rounded">
+
+                            <i class="bi bi-graph-up fs-2"></i>
+
+                            <h6 class="mt-3">
+                                Consulta ventas
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CARRITO
+===================================================== -->
+
+<section
+    id="carrito"
+    class="section section-light"
+>
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div class="cart-box">
+
+                    <div class="d-flex
+                                justify-content-between
+                                align-items-center">
+
+                        <div>
+
+                            <h2 class="fw-bold mb-1">
+                                <i class="bi bi-cart3"></i>
+                                Pedido de abastecimiento
+                            </h2>
+
+                            <p class="text-muted mb-0">
+                                Revisa los productos seleccionados.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+
+                    <div
+                        class="d-flex
+                               justify-content-between
+                               mb-3"
+                    >
+
+                        <span>
+                            Productos
+                        </span>
+
+                        <strong id="cantidadCarrito">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        class="d-flex
+                               justify-content-between
+                               mb-4"
+                    >
+
+                        <span>
+                            Total estimado
+                        </span>
+
+                        <span
+                            id="totalCarrito"
+                            class="cart-total"
+                        >
+                            $0.00 MXN
+                        </span>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-primary w-100 btn-lg"
+                        onclick="verCarrito()"
+                    >
+
+                        Revisar pedido
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACTO
+===================================================== -->
+
+<section
+    id="contacto"
+    class="section"
+>
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <h2 class="section-title">
+                ¿Necesitas ayuda?
+            </h2>
+
+            <p class="section-description mx-auto">
+                Nuestro equipo está disponible para atender
+                consultas de negocios y proveedores.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-4">
+
+                <div class="contact-card">
+
+                    <h5>
+                        <i class="bi bi-envelope"></i>
+                        Correo
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        contacto@b2bconnect.mx
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="contact-card">
+
+                    <h5>
+                        <i class="bi bi-telephone"></i>
+                        Teléfono
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        +52 55 0000 0000
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="contact-card">
+
+                    <h5>
+                        <i class="bi bi-clock"></i>
+                        Horario
+                    </h5>
+
+                    <p class="text-muted mb-0">
+                        Lunes a viernes<br>
+                        08:00 – 18:00
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container">
+
+        <div class="row">
+
+
+            <div class="col-md-6">
+
+                <h5>
+                    B2B Connect
+                </h5>
+
+                <p class="mt-3">
+
+                    Plataforma digital para conectar negocios
+                    con proveedores y facilitar el abastecimiento.
+
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <h5>
+                    Plataforma
+                </h5>
+
+                <p>
+                    <a href="#productos">
+                        Catálogo
+                    </a>
+                </p>
+
+                <p>
+                    <a href="#proveedores">
+                        Proveedores
+                    </a>
+                </p>
+
+                <p>
+                    <a href="#carrito">
+                        Pedidos
+                    </a>
+                </p>
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <h5>
+                    Empresa
+                </h5>
+
+                <p>
+                    <a href="#">
+                        Acerca de nosotros
+                    </a>
+                </p>
+
+                <p>
+                    <a href="#contacto">
+                        Contacto
+                    </a>
+                </p>
+
+                <p>
+                    <a href="#">
+                        Iniciar sesión
+                    </a>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom text-center">
+
+            © 2026 B2B Connect · Proyecto académico
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* ==========================================
+   CARRITO
+========================================== */
+
+let carrito =
+    JSON.parse(
+        localStorage.getItem("carritoB2B")
+    ) || [];
+
+
+
+function agregarCarrito(nombre, precio) {
+
+
+    carrito.push({
+
+        nombre: nombre,
+
+        precio: precio
+
+    });
+
+
+    localStorage.setItem(
+
+        "carritoB2B",
+
+        JSON.stringify(carrito)
+
+    );
+
+
+    actualizarCarrito();
+
+
+    alert(
+        nombre +
+        " fue agregado al carrito."
+    );
+
+}
+
+
+
+function actualizarCarrito() {
+
+
+    let total = 0;
+
+
+    carrito.forEach(
+
+        producto => {
+
+            total +=
+                producto.precio;
+
+        }
+
+    );
+
+
+    document.getElementById(
+        "cantidadCarrito"
+    ).innerText =
+        carrito.length;
+
+
+    document.getElementById(
+        "totalCarrito"
+    ).innerText =
+        "$" +
+        total.toFixed(2) +
+        " MXN";
+
+}
+
+
+
+/* ==========================================
+   BUSCADOR
+========================================== */
+
+function buscarProductos() {
+
+
+    const texto =
+
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .trim();
+
+
+    if (!texto) {
+
+        alert(
+            "Escribe el producto que deseas buscar."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        Aquí posteriormente puedes
+        conectar tu API GET.
+
+        Ejemplo:
+
+        fetch(
+            "http://localhost:8080/productos?nombre="
+            + encodeURIComponent(texto)
+        )
+    */
+
+
+    alert(
+
+        "Buscando productos relacionados con: "
+        + texto
+
+    );
+
+}
+
+
+
+/* ==========================================
+   VER CARRITO
+========================================== */
+
+function verCarrito() {
+
+
+    if (carrito.length === 0) {
+
+        alert(
+            "Tu carrito está vacío."
+        );
+
+        return;
+
+    }
+
+
+    let mensaje =
+        "PEDIDO DE ABASTECIMIENTO\n\n";
+
+
+    carrito.forEach(
+
+        (producto, index) => {
+
+            mensaje +=
+
+                (index + 1) +
+                ". " +
+                producto.nombre +
+                " - $" +
+                producto.precio.toFixed(2) +
+                "\n";
+
+        }
+
+    );
+
+
+    mensaje +=
+        "\nTotal: $" +
+        carrito
+            .reduce(
+                (total, producto) =>
+                    total + producto.precio,
+                0
+            )
+            .toFixed(2);
+
+
+    alert(mensaje);
+
+}
+
+
+
+/* ==========================================
+   INICIALIZAR
+========================================== */
+
+actualizarCarrito();
+
+</script>
+
+
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+</body>
+
 </html>
+```
