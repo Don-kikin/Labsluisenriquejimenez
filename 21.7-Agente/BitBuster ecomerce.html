@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="B2B Connect: plataforma digital para conectar negocios con proveedores, comparar productos y facilitar el abastecimiento.">
+    <title>B2B Connect | Abastecimiento inteligente para negocios</title>
+
+    <!-- =====================================================
+         BOOTSTRAP & ICONS
+    ====================================================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- =====================================================
+         GOOGLE FONT
+    ====================================================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- =====================================================
+         SCHEMA.ORG
+    ====================================================== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "B2B Connect",
+        "description": "Plataforma B2B para conectar negocios con proveedores, consultar productos y facilitar el abastecimiento.",
+        "url": "https://b2bconnect.example"
+    }
+    </script>
+
+    <!-- =====================================================
+         ESTILOS
+    ====================================================== -->
+    <style>
+        /* VARIABLES */
+        :root {
+            --primary: #111111;
+            --primary-light: #222222;
+            --accent: #1769ff;
+            --accent-dark: #0b4dcc;
+            --background: #ffffff;
+            --background-soft: #f6f7f9;
+            --text: #15171a;
+            --text-soft: #68707a;
+            --border: #e5e7eb;
+            --success: #198754;
+            --radius: 18px;
+            --shadow: 0 15px 45px rgba(0,0,0,.07);
+        }
+
+        /* GENERAL */
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: "Inter", sans-serif; color: var(--text); background: var(--background); }
+        a { text-decoration: none; }
+        section { scroll-margin-top: 90px; }
+
+        /* NAVBAR */
+        .navbar { background: rgba(255,255,255,.94); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 0; }
+        .navbar-brand { font-weight: 800; font-size: 1.35rem; letter-spacing: -1px; color: var(--text) !important; }
+        .brand-mark { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; background: var(--text); color: white; border-radius: 11px; margin-right: 8px; }
+        .navbar .nav-link { color: #555b63; font-weight: 500; margin: 0 7px; transition: .2s; }
+        .navbar .nav-link:hover { color: var(--accent); }
+        
+        .btn-primary-custom { background: var(--text); border: none; color: white; padding: 12px 22px; border-radius: 10px; font-weight: 600; transition: .25s; }
+        .btn-primary-custom:hover { background: var(--accent); color: white; transform: translateY(-2px); }
+        .btn-outline-custom { border: 1px solid #d6d9de; color: var(--text); padding: 12px 22px; border-radius: 10px; font-weight: 600; background: white; transition: .25s; }
+        .btn-outline-custom:hover { border-color: var(--text); background: #f8f8f8; }
+
+        /* ELEMENTOS NUEVOS CÓDIGO 3 (Comparador y Puntos) */
+        .badge-puntos { background-color: #ffc107; color: #000; font-weight: bold; font-size: 0.85rem; padding: 6px 12px; border-radius: 20px; display: flex; align-items: center; gap: 5px; height: fit-content; }
+        .compare-checkbox { position: absolute; top: 15px; right: 15px; transform: scale(1.5); cursor: pointer; z-index: 10; }
+        .compare-item { padding: 15px; border: 1px solid var(--border); border-radius: 12px; margin-bottom: 15px; }
+        .compare-winner { border-color: var(--success); background-color: #f8fff9; }
+        .winner-badge { background: var(--success); color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
+
+        /* HERO */
+        .hero { min-height: 760px; display: flex; align-items: center; background: radial-gradient(circle at 85% 20%, rgba(23,105,255,.12), transparent 30%), radial-gradient(circle at 15% 70%, rgba(23,105,255,.08), transparent 28%), #ffffff; padding: 100px 0 90px; overflow: hidden; }
+        .hero-label { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 50px; background: #f1f5ff; color: var(--accent); font-size: .82rem; font-weight: 700; margin-bottom: 25px; }
+        .hero-label span { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; }
+        .hero h1 { font-size: clamp(3rem, 6vw, 6.2rem); line-height: .98; font-weight: 800; letter-spacing: -5px; max-width: 900px; }
+        .hero h1 .highlight { color: var(--accent); }
+        .hero-text { font-size: 1.2rem; line-height: 1.7; color: var(--text-soft); max-width: 680px; margin-top: 28px; }
+        .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 35px; }
+        .hero-visual { position: relative; min-height: 430px; }
+        .dashboard-card { position: absolute; width: 420px; right: 20px; top: 30px; background: white; border: 1px solid var(--border); border-radius: 24px; box-shadow: 0 30px 80px rgba(0,0,0,.13); padding: 25px; transform: rotate(2deg); }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .dashboard-title { font-weight: 700; }
+        .dashboard-status { font-size: .75rem; color: var(--success); background: #eaf7ef; padding: 6px 10px; border-radius: 20px; }
+        .dashboard-number { font-size: 2.3rem; font-weight: 800; }
+        .dashboard-sub { color: var(--text-soft); font-size: .85rem; }
+        .chart { height: 110px; display: flex; align-items: end; gap: 8px; margin-top: 25px; }
+        .chart-bar { flex: 1; background: #dce8ff; border-radius: 5px 5px 0 0; }
+        .chart-bar:nth-child(1) { height: 35%; }
+        .chart-bar:nth-child(2) { height: 55%; }
+        .chart-bar:nth-child(3) { height: 45%; }
+        .chart-bar:nth-child(4) { height: 75%; }
+        .chart-bar:nth-child(5) { height: 60%; }
+        .chart-bar:nth-child(6) { height: 90%; }
+        .floating-card { position: absolute; left: 0; bottom: 30px; background: #111; color: white; padding: 20px; border-radius: 18px; width: 230px; box-shadow: var(--shadow); }
+        .floating-card i { color: #6ea0ff; font-size: 1.5rem; }
+
+        /* SECTIONS / LAYOUT */
+        .mini-stats { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 35px 0; }
+        .mini-stat { text-align: center; border-right: 1px solid var(--border); }
+        .mini-stat:last-child { border-right: none; }
+        .mini-stat strong { display: block; font-size: 1.8rem; font-weight: 800; }
+        .mini-stat span { color: var(--text-soft); font-size: .9rem; }
+        .section-label { color: var(--accent); text-transform: uppercase; font-weight: 700; font-size: .78rem; letter-spacing: 1.5px; margin-bottom: 14px; }
+        .section-title { font-size: clamp(2.2rem, 4vw, 4rem); line-height: 1.05; letter-spacing: -2px; font-weight: 800; }
+        .section-description { color: var(--text-soft); line-height: 1.7; font-size: 1.05rem; max-width: 650px; }
+        
+        .solutions, .categories, .providers, .contact { padding: 120px 0; }
+        .catalog { padding: 110px 0; background: var(--background-soft); }
+        .data-section { padding: 110px 0; background: #111; color: white; }
+        
+        /* CARDS */
+        .solution-card { height: 100%; padding: 35px; border: 1px solid var(--border); border-radius: var(--radius); background: white; transition: .3s; }
+        .solution-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: #cdd9f5; }
+        .solution-number { color: #b5bbc3; font-size: .85rem; font-weight: 700; }
+        .solution-icon { width: 58px; height: 58px; border-radius: 15px; display: flex; align-items: center; justify-content: center; background: #eef4ff; color: var(--accent); font-size: 1.5rem; margin: 35px 0 25px; }
+        .category-card { min-height: 210px; padding: 30px; border: 1px solid var(--border); border-radius: 18px; background: white; transition: .25s; cursor: pointer; }
+        .category-card:hover { background: #111; color: white; transform: translateY(-5px); }
+        .category-icon { font-size: 2rem; margin-bottom: 40px; }
+        
+        .product-card { position: relative; background: white; border: 1px solid var(--border); border-radius: 18px; overflow: hidden; height: 100%; transition: .25s; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+        .product-image { height: 210px; background: #f1f3f6; display: flex; align-items: center; justify-content: center; font-size: 5rem; }
+        .product-body { padding: 25px; }
+        .product-category { color: var(--accent); text-transform: uppercase; font-size: .7rem; font-weight: 700; letter-spacing: 1px; }
+        .product-price { font-size: 1.35rem; font-weight: 800; margin-top: 15px; margin-bottom: 5px;}
+        
+        .contact-card { border: 1px solid var(--border); border-radius: 20px; padding: 35px; height: 100%; }
+        .provider-panel { background: #eef4ff; border-radius: 25px; padding: 70px; overflow: hidden; position: relative; }
+
+        /* CART & MISC */
+        .cart-item { border-bottom: 1px solid var(--border); padding: 15px 0; }
+        .cart-item:last-child { border-bottom: none; }
+        .cart-quantity { display: flex; align-items: center; gap: 10px; }
+        .quantity-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); background: white; }
+        
+        footer { background: #111; color: white; padding: 70px 0 30px; }
+        footer a { color: #9ca3af; } footer a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid #303030; margin-top: 50px; padding-top: 25px; color: #777; font-size: .85rem; }
+
+        @media (max-width: 991px) {
+            .hero { padding-top: 80px; }
+            .hero-visual { margin-top: 50px; }
+            .dashboard-card { position: relative; right: auto; width: 90%; margin: auto; }
+            .floating-card { left: 5%; bottom: 0; }
+            .mini-stat { border-right: none; margin-bottom: 25px; }
+            .provider-panel { padding: 45px 30px; }
+            .navbar-nav { padding-bottom: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- =====================================================
+     NAVBAR
+====================================================== -->
+<nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#inicio">
+            <span class="brand-mark"><i class="bi bi-box-seam"></i></span> B2B Connect
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li class="nav-item"><a class="nav-link" href="#soluciones">Soluciones</a></li>
+                <li class="nav-item"><a class="nav-link" href="#categorias">Categorías</a></li>
+                <li class="nav-item"><a class="nav-link" href="#catalogo">Catálogo</a></li>
+                <li class="nav-item"><a class="nav-link" href="#proveedores">Proveedores</a></li>
+                
+                <!-- FUNCIONES AVANZADAS B2B -->
+                <li class="nav-item ms-lg-3 mt-3 mt-lg-0 d-flex gap-2 flex-wrap align-items-center">
+                    <button class="btn btn-outline-custom p-2 px-3" onclick="abrirComparador()">
+                        <i class="bi bi-arrow-left-right"></i> (<span id="contadorComparar">0</span>)
+                    </button>
+                    <button class="btn btn-outline-custom position-relative p-2 px-3" onclick="abrirCarrito()">
+                        <i class="bi bi-cart3"></i>
+                        <span id="badgeCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                    </button>
+                    <button class="btn btn-primary-custom" onclick="abrirLogin()">Iniciar sesión</button>
+                    <div id="puntosContenedor" class="badge-puntos ms-2 d-none">
+                        <i class="bi bi-star-fill"></i> <span id="puntosUsuario">0</span> pts
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+<section id="inicio" class="hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <div class="hero-label"><span></span> Plataforma B2B para negocios</div>
+                <h1>El abastecimiento de tu negocio <span class="highlight">puede ser más simple.</span></h1>
+                <p class="hero-text">Conecta con proveedores, encuentra productos, compara opciones y administra tus compras desde una sola plataforma.</p>
+                <div class="hero-buttons">
+                    <a href="#catalogo" class="btn btn-primary-custom btn-lg">Explorar catálogo <i class="bi bi-arrow-right ms-2"></i></a>
+                    <a href="#proveedores" class="btn btn-outline-custom btn-lg">Soy proveedor</a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-visual">
+                    <div class="dashboard-card">
+                        <div class="dashboard-header">
+                            <div>
+                                <div class="dashboard-title">Abastecimiento</div>
+                                <small class="text-muted">Panel de negocio</small>
+                            </div>
+                            <span class="dashboard-status"><i class="bi bi-circle-fill"></i> Activo</span>
+                        </div>
+                        <div>
+                            <span class="dashboard-sub">Productos registrados</span>
+                            <div class="dashboard-number">1,248</div>
+                        </div>
+                        <div class="chart">
+                            <div class="chart-bar"></div><div class="chart-bar"></div><div class="chart-bar"></div>
+                            <div class="chart-bar"></div><div class="chart-bar"></div><div class="chart-bar"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <small class="text-muted">Inventario</small>
+                            <strong>+18.4%</strong>
+                        </div>
+                    </div>
+                    <div class="floating-card">
+                        <i class="bi bi-lightning-charge"></i>
+                        <div class="mt-3 fw-bold">Compra de forma inteligente</div>
+                        <small class="text-secondary-emphasis">Compara proveedores antes de tomar una decisión.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     MINI STATS
+====================================================== -->
+<section class="mini-stats">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mini-stat"><strong>B2B</strong><span>Modelo de negocio</span></div>
+            <div class="col-md-3 mini-stat"><strong>24/7</strong><span>Consulta de productos</span></div>
+            <div class="col-md-3 mini-stat"><strong>1</strong><span>Plataforma centralizada</span></div>
+            <div class="col-md-3 mini-stat"><strong>100%</strong><span>Enfoque digital</span></div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     SOLUCIONES
+====================================================== -->
+<section id="soluciones" class="solutions">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <div class="section-label">Una plataforma. Diferentes soluciones.</div>
+                <h2 class="section-title">Todo lo necesario para gestionar tu abastecimiento.</h2>
+                <p class="section-description mt-4">B2B Connect centraliza las principales actividades que un negocio necesita para encontrar productos y gestionar sus compras.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3"><div class="solution-card"><span class="solution-number">01</span><div class="solution-icon"><i class="bi bi-search"></i></div><h3>Buscar</h3><p>Encuentra productos y proveedores desde un catálogo centralizado.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="solution-card"><span class="solution-number">02</span><div class="solution-icon"><i class="bi bi-bar-chart"></i></div><h3>Comparar</h3><p>Consulta diferentes opciones antes de decidir dónde comprar.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="solution-card"><span class="solution-number">03</span><div class="solution-icon"><i class="bi bi-boxes"></i></div><h3>Controlar</h3><p>Mantén una visión organizada de tus productos e inventario.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="solution-card"><span class="solution-number">04</span><div class="solution-icon"><i class="bi bi-cart-check"></i></div><h3>Comprar</h3><p>Agrega productos al carrito y prepara tus pedidos de abastecimiento.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     DATA / BENEFICIOS
+====================================================== -->
+<section class="data-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="section-label text-primary-emphasis">Decisiones basadas en información</div>
+                <h2 class="section-title">Compra mejor.<br>Decide con datos.</h2>
+                <p class="section-description mt-4 text-white-50">El objetivo de B2B Connect no es solamente vender productos. La plataforma busca facilitar el acceso a información que ayude al negocio a tomar mejores decisiones de abastecimiento.</p>
+            </div>
+            <div class="col-lg-5 offset-lg-1 mt-5 mt-lg-0">
+                <div class="data-box"><strong>↓</strong><span>Menos tiempo buscando proveedores</span></div>
+                <div class="data-box"><strong>↑</strong><span>Mayor visibilidad del inventario</span></div>
+                <div class="data-box"><strong>≠</strong><span>Comparación entre diferentes opciones</span></div>
+                <div class="data-box"><strong>✓</strong><span>Procesos de compra centralizados</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     CATEGORÍAS
+====================================================== -->
+<section id="categorias" class="categories">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8">
+                <div class="section-label">Explora</div>
+                <h2 class="section-title">Encuentra lo que necesita tu negocio.</h2>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3"><div class="category-card" onclick="filtrarCategoria('Bebidas')"><div class="category-icon"><i class="bi bi-cup-straw"></i></div><h4>Bebidas</h4><p>Refrescos, agua, jugos y bebidas.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="category-card" onclick="filtrarCategoria('Abarrotes')"><div class="category-icon"><i class="bi bi-basket2"></i></div><h4>Abarrotes</h4><p>Productos básicos para tu negocio.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="category-card" onclick="filtrarCategoria('Limpieza')"><div class="category-icon"><i class="bi bi-droplet"></i></div><h4>Limpieza</h4><p>Productos de limpieza y mantenimiento.</p></div></div>
+            <div class="col-md-6 col-lg-3"><div class="category-card" onclick="filtrarCategoria('Empaque')"><div class="category-icon"><i class="bi bi-box"></i></div><h4>Empaque</h4><p>Cajas, bolsas y materiales.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     CATÁLOGO
+====================================================== -->
+<section id="catalogo" class="catalog">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+            <div>
+                <div class="section-label">Catálogo</div>
+                <h2 class="section-title mb-0">Productos destacados</h2>
+            </div>
+            <input id="buscadorProductos" class="form-control w-auto" type="text" placeholder="Buscar producto..." onkeyup="buscarProductos()" style="min-width: 250px;">
+        </div>
+
+        <div class="mb-4">
+            <button class="btn btn-dark me-2 mb-2" onclick="filtrarCategoria('Todos')">Todos</button>
+            <button class="btn btn-outline-dark me-2 mb-2" onclick="filtrarCategoria('Abarrotes')">Abarrotes</button>
+            <button class="btn btn-outline-dark me-2 mb-2" onclick="filtrarCategoria('Bebidas')">Bebidas</button>
+            <button class="btn btn-outline-dark me-2 mb-2" onclick="filtrarCategoria('Limpieza')">Limpieza</button>
+            <button class="btn btn-outline-dark me-2 mb-2" onclick="filtrarCategoria('Empaque')">Empaque</button>
+        </div>
+
+        <div id="contenedorProductos" class="row g-4"></div>
+        
+        <div id="sinResultados" class="text-center py-5 d-none">
+            <i class="bi bi-search" style="font-size:3rem;"></i>
+            <h4 class="mt-3">No encontramos productos</h4>
+            <p class="text-muted">Intenta con otro término de búsqueda.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     PROVEEDORES
+====================================================== -->
+<section id="proveedores" class="providers">
+    <div class="container">
+        <div class="provider-panel">
+            <div class="section-label">Para proveedores</div>
+            <h2>Lleva tus productos a nuevos negocios.</h2>
+            <p class="mt-4">B2B Connect busca crear un espacio donde proveedores y negocios puedan encontrarse de forma más sencilla. Publica tu catálogo, presenta tus productos y facilita el proceso de abastecimiento para tus clientes empresariales.</p>
+            <button class="btn btn-primary-custom btn-lg mt-3" onclick="abrirRegistroProveedor()">Quiero vender <i class="bi bi-arrow-up-right ms-2"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     CONTACTO
+====================================================== -->
+<section id="contacto" class="contact">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-7">
+                <div class="section-label">Contacto</div>
+                <h2 class="section-title">Construyamos una mejor forma de abastecer.</h2>
+                <p class="section-description mt-4">¿Tienes dudas sobre la plataforma, quieres formar parte como proveedor o deseas conocer más sobre B2B Connect? Envíanos un mensaje.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4"><div class="contact-card"><div class="contact-icon"><i class="bi bi-envelope"></i></div><h5>Correo</h5><p class="text-muted">contacto@b2bconnect.mx</p></div></div>
+            <div class="col-lg-4"><div class="contact-card"><div class="contact-icon"><i class="bi bi-clock"></i></div><h5>Atención</h5><p class="text-muted">Lunes a viernes<br>08:00 – 18:00</p></div></div>
+            <div class="col-lg-4"><div class="contact-card"><div class="contact-icon"><i class="bi bi-chat-dots"></i></div><h5>¿Necesitas ayuda?</h5><button class="btn btn-outline-custom mt-2" onclick="abrirContacto()">Enviar mensaje</button></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+<footer>
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <h5><i class="bi bi-box-seam me-2"></i> B2B Connect</h5>
+                <p class="mt-3">Plataforma digital B2B diseñada para facilitar la conexión entre negocios y proveedores.</p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6>Plataforma</h6>
+                <p class="mt-3"><a href="#soluciones">Soluciones</a></p>
+                <p><a href="#catalogo">Catálogo</a></p>
+                <p><a href="#proveedores">Proveedores</a></p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h6>Información</h6>
+                <p class="mt-3"><a href="#inicio">Inicio</a></p>
+                <p><a href="#categorias">Categorías</a></p>
+                <p><a href="#contacto">Contacto</a></p>
+            </div>
+            <div class="col-lg-3">
+                <h6>Cuenta</h6>
+                <p class="mt-3"><a href="#" onclick="abrirLogin(); return false;">Iniciar sesión</a></p>
+                <p><a href="#" onclick="abrirRegistro(); return false;">Crear cuenta</a></p>
+                <p><a href="#" onclick="abrirCarrito(); return false;">Mi carrito</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom text-center">© 2026 B2B Connect · Integración B2B Avanzada</div>
+    </div>
+</footer>
+
+<!-- =====================================================
+     MODALES SISTEMA
+====================================================== -->
+
+<!-- MODAL CARRITO -->
+<div class="modal fade" id="modalCarrito" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold"><i class="bi bi-cart3 me-2"></i>Mi carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="contenidoCarrito"></div>
+            </div>
+            <div class="modal-footer">
+                <strong id="totalModal" class="me-auto fs-5">Total: $0.00</strong>
+                <button class="btn btn-outline-custom" data-bs-dismiss="modal">Seguir comprando</button>
+                <button class="btn btn-primary-custom" onclick="confirmarPedido()">Procesar compra</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL COMPARADOR -->
+<div class="modal fade" id="modalComparador" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold"><i class="bi bi-arrow-left-right me-2"></i>Comparador de Productos</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted small">Cálculo basado en la conversión a unidades estandarizadas (1 Litro o 1 Kilo) para facilitar tu decisión estratégica de abastecimiento.</p>
+                <div id="contenidoComparador"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL RESEÑAS -->
+<div class="modal fade" id="modalResenias" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Calificar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="enviarResenia(event)">
+                    <div class="mb-3 text-center fs-3 text-warning">
+                        <i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i><i class="bi bi-star"></i>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">¿Cómo evaluarías la calidad?</label>
+                        <select class="form-select" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Excelente">Excelente, superó expectativas</option>
+                            <option value="Buena">Buena, cumple su función</option>
+                            <option value="Regular">Regular, podría mejorar</option>
+                            <option value="Mala">Mala calidad</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">¿Llegó a tiempo?</label>
+                        <select class="form-select" required>
+                            <option value="">Selecciona...</option>
+                            <option value="Si">Sí, a tiempo</option>
+                            <option value="No">No, hubo retrasos</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Comentarios adicionales</label>
+                        <textarea class="form-control" rows="3" placeholder="Describe tu experiencia con el producto..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Publicar reseña</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL LOGIN -->
+<div class="modal fade" id="modalLogin" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Iniciar sesión</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form onsubmit="loginDemo(event)">
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100 mb-2">Iniciar sesión</button>
+                    <div class="text-center mt-3">
+                        <a href="#" onclick="abrirRecuperar(); return false;" class="text-muted small d-block mb-2">¿Olvidaste tu contraseña?</a>
+                        <small class="text-muted">¿No tienes cuenta? <a href="#" onclick="abrirRegistro(); return false;">Regístrate</a></small>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL REGISTRO -->
+<div class="modal fade" id="modalRegistro" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Crear cuenta</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form onsubmit="registroDemo(event)">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del negocio</label>
+                        <input type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de cuenta</label>
+                        <select class="form-select" required>
+                            <option value="">Selecciona una opción</option>
+                            <option value="NEGOCIO">Negocio / Comprador</option>
+                            <option value="PROVEEDOR">Proveedor</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Crear cuenta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL RECUPERAR CONTRASEÑA -->
+<div class="modal fade" id="modalRecuperar" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Recuperar Contraseña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="text-muted small">Ingresa el correo electrónico asociado a tu cuenta para enviarte un enlace de restablecimiento.</p>
+                <form onsubmit="recuperarPassword(event)">
+                    <div class="mb-3">
+                        <label class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Enviar enlace</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CONTACTO -->
+<div class="modal fade" id="modalContacto" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold">Enviar mensaje</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form onsubmit="enviarContacto(event)">
+                    <div class="mb-3"><label class="form-label">Nombre</label><input type="text" class="form-control" required></div>
+                    <div class="mb-3"><label class="form-label">Correo</label><input type="email" class="form-control" required></div>
+                    <div class="mb-3"><label class="form-label">Mensaje</label><textarea class="form-control" rows="4" required></textarea></div>
+                    <button type="submit" class="btn btn-primary-custom w-100">Enviar mensaje</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+<script>
+/* =====================================================
+   ESTADO Y VARIABLES GLOBALES
+====================================================== */
+let carrito = JSON.parse(localStorage.getItem("carritoB2B")) || [];
+let puntos = parseInt(localStorage.getItem("puntosB2B")) || 0;
+let comparador = [];
+
+/* =====================================================
+   BASE DE DATOS EXTENDIDA (Código 3)
+====================================================== */
+const productos = [
+    // --- ABARROTES ---
+    { id: 1, nombre: "Galletas Oreo de Chocolate", categoria: "Abarrotes", proveedor: "Distribuidora Nabisco", precio: 22.00, cantidadBase: 114, medida: "g", unidad: "paquete", icono: "🍪" },
+    { id: 2, nombre: "Galletas Emperador de Chocolate", categoria: "Abarrotes", proveedor: "Proveedora Gamesa", precio: 20.00, cantidadBase: 109, medida: "g", unidad: "paquete", icono: "🍪" },
+    { id: 3, nombre: "Galletas Gamesa de Chocolate", categoria: "Abarrotes", proveedor: "Proveedora Gamesa", precio: 18.50, cantidadBase: 100, medida: "g", unidad: "paquete", icono: "🍪" },
+    { id: 4, nombre: "Galletas Coolflavor de Limón", categoria: "Abarrotes", proveedor: "CoolBakers MX", precio: 15.00, cantidadBase: 90, medida: "g", unidad: "paquete", icono: "🍋" },
+    { id: 5, nombre: "Galletas Stars de Fresa", categoria: "Abarrotes", proveedor: "Estrellas Dulces", precio: 19.00, cantidadBase: 120, medida: "g", unidad: "paquete", icono: "🍓" },
+    { id: 6, nombre: "Aceite vegetal mixto", categoria: "Abarrotes", proveedor: "Comercializadora ABC", precio: 35.00, cantidadBase: 1000, medida: "ml", unidad: "botella", icono: "🫗" },
+    // --- BEBIDAS ---
+    { id: 7, nombre: "Cerveza Lager 1 Litro", categoria: "Bebidas", proveedor: "Cervecería Central", precio: 50.00, cantidadBase: 1000, medida: "ml", unidad: "botella", icono: "🍺" },
+    { id: 8, nombre: "Cerveza Lager 4-Pack (250ml c/u)", categoria: "Bebidas", proveedor: "Cervecería Central", precio: 60.00, cantidadBase: 1000, medida: "ml", unidad: "paquete", icono: "🍻" },
+    { id: 9, nombre: "Refresco de Cola 600 ml", categoria: "Bebidas", proveedor: "Distribuidora MX", precio: 18.00, cantidadBase: 600, medida: "ml", unidad: "botella", icono: "🥤" },
+    { id: 10, nombre: "Jugo de Naranja 1 L", categoria: "Bebidas", proveedor: "Jugos del Valle", precio: 28.00, cantidadBase: 1000, medida: "ml", unidad: "envase", icono: "🍊" },
+    { id: 11, nombre: "Agua Embotellada 1.5 L", categoria: "Bebidas", proveedor: "Manantiales Puros", precio: 14.00, cantidadBase: 1500, medida: "ml", unidad: "botella", icono: "💧" },
+    // --- LIMPIEZA ---
+    { id: 12, nombre: "Detergente Líquido 1 L", categoria: "Limpieza", proveedor: "Limpieza Express", precio: 38.00, cantidadBase: 1000, medida: "ml", unidad: "botella", icono: "🧴" },
+    { id: 13, nombre: "Limpiador Multiusos 2 L", categoria: "Limpieza", proveedor: "Limpieza Total", precio: 45.00, cantidadBase: 2000, medida: "ml", unidad: "botella", icono: "🧽" },
+    { id: 14, nombre: "Cloro Concentrado 1 L", categoria: "Limpieza", proveedor: "Químicos MX", precio: 22.00, cantidadBase: 1000, medida: "ml", unidad: "botella", icono: "🧪" },
+    { id: 15, nombre: "Jabón en Polvo 1 Kg", categoria: "Limpieza", proveedor: "Burbujas SA", precio: 35.00, cantidadBase: 1000, medida: "g", unidad: "bolsa", icono: "🧼" },
+    { id: 16, nombre: "Desengrasante Industrial 500 ml", categoria: "Limpieza", proveedor: "Químicos MX", precio: 60.00, cantidadBase: 500, medida: "ml", unidad: "botella", icono: "✨" },
+    // --- EMPAQUE ---
+    { id: 17, nombre: "Caja de Cartón Corrugado", categoria: "Empaque", proveedor: "Empaques del Centro", precio: 12.00, cantidadBase: 100, medida: "g", unidad: "pieza", icono: "📦" },
+    { id: 18, nombre: "Cinta Adhesiva Transparente", categoria: "Empaque", proveedor: "Suministros Oficina", precio: 25.00, cantidadBase: 50, medida: "g", unidad: "rollo", icono: "🧻" },
+    { id: 19, nombre: "Bolsa Kraft con Asa", categoria: "Empaque", proveedor: "EcoEmpaques", precio: 5.50, cantidadBase: 20, medida: "g", unidad: "pieza", icono: "🛍️" },
+    { id: 20, nombre: "Rollo Plástico Burbuja", categoria: "Empaque", proveedor: "Protección Total", precio: 150.00, cantidadBase: 1000, medida: "g", unidad: "rollo", icono: "🫧" },
+    { id: 21, nombre: "Sobres acolchados (Paq. 10)", categoria: "Empaque", proveedor: "Empaques Rápidos", precio: 45.00, cantidadBase: 200, medida: "g", unidad: "paquete", icono: "✉️" }
+];
+
+/* =====================================================
+   RENDERIZADO DE PRODUCTOS
+====================================================== */
+function renderizarProductos(lista = productos) {
+    const contenedor = document.getElementById("contenedorProductos");
+    const sinResultados = document.getElementById("sinResultados");
+    contenedor.innerHTML = "";
+
+    if (lista.length === 0) {
+        sinResultados.classList.remove("d-none");
+        return;
+    }
+    sinResultados.classList.add("d-none");
+
+    lista.forEach(producto => {
+        const tarjeta = document.createElement("div");
+        tarjeta.className = "col-md-6 col-lg-3";
+        const isChecked = comparador.includes(producto.id) ? "checked" : "";
+
+        tarjeta.innerHTML = `
+            <div class="product-card">
+                <input type="checkbox" class="compare-checkbox form-check-input" ${isChecked} onchange="toggleComparador(${producto.id}, this)">
+                <div class="product-image">${producto.icono}</div>
+                <div class="product-body">
+                    <div class="product-category">${producto.categoria}</div>
+                    <h4 class="fw-bold mt-2 fs-5 mb-1">${producto.nombre}</h4>
+                    <div class="text-muted small mb-2"><i class="bi bi-building"></i> ${producto.proveedor}</div>
+                    <div class="product-price">$${producto.precio.toFixed(2)}</div>
+                    <small class="text-muted d-block mb-3">Precio por ${producto.unidad} (${producto.cantidadBase}${producto.medida})</small>
+                    
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary-custom w-100 flex-grow-1" onclick="agregarCarrito(${producto.id})">
+                            <i class="bi bi-cart-plus me-1"></i> Agregar
+                        </button>
+                        <button class="btn btn-outline-custom p-2" title="Opiniones" onclick="abrirResenias(${producto.id})">
+                            <i class="bi bi-star"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        contenedor.appendChild(tarjeta);
+    });
+}
+
+/* =====================================================
+   CARRITO Y PUNTOS
+====================================================== */
+function agregarCarrito(id) {
+    const producto = productos.find(item => item.id === id);
+    if (!producto) return;
+    const existente = carrito.find(item => item.id === id);
+    if (existente) {
+        existente.cantidad++;
+    } else {
+        carrito.push({ ...producto, cantidad: 1 });
+    }
+    guardarCarrito();
+    actualizarBadgeCarrito();
+    mostrarNotificacion(producto.nombre + " agregado al carrito.");
+}
+
+function guardarCarrito() {
+    localStorage.setItem("carritoB2B", JSON.stringify(carrito));
+}
+
+function actualizarBadgeCarrito() {
+    const badge = document.getElementById("badgeCarrito");
+    const totalItems = carrito.reduce((acc, item) => acc + item.cantidad, 0);
+    if (totalItems > 0) {
+        badge.innerText = totalItems;
+        badge.classList.remove("d-none");
+    } else {
+        badge.classList.add("d-none");
+    }
+}
+
+function abrirCarrito() {
+    renderizarCarrito();
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalCarrito")) || new bootstrap.Modal(document.getElementById("modalCarrito"));
+    modal.show();
+}
+
+function renderizarCarrito() {
+    const contenedor = document.getElementById("contenidoCarrito");
+    const totalModal = document.getElementById("totalModal");
+    contenedor.innerHTML = "";
+    
+    if (carrito.length === 0) {
+        contenedor.innerHTML = `<div class="text-center py-4"><i class="bi bi-cart-x fs-1"></i><p class="mt-2">Carrito vacío</p></div>`;
+        totalModal.innerText = "Total: $0.00";
+        return;
+    }
+
+    let total = 0;
+    carrito.forEach(producto => {
+        const subtotal = producto.precio * producto.cantidad;
+        total += subtotal;
+        contenedor.innerHTML += `
+            <div class="cart-item d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="fs-1 bg-light rounded px-2 border">${producto.icono}</div>
+                    <div>
+                        <strong class="d-block">${producto.nombre}</strong>
+                        <small class="text-muted">$${producto.precio.toFixed(2)} x ${producto.unidad}</small>
+                    </div>
+                </div>
+                <div class="cart-quantity">
+                    <button class="quantity-btn" onclick="cambiarCantidad(${producto.id}, -1)">−</button>
+                    <strong>${producto.cantidad}</strong>
+                    <button class="quantity-btn" onclick="cambiarCantidad(${producto.id}, 1)">+</button>
+                    <strong class="ms-3" style="width: 80px; text-align:right;">$${subtotal.toFixed(2)}</strong>
+                </div>
+            </div>
+        `;
+    });
+    totalModal.innerText = "Total: $" + total.toFixed(2);
+}
+
+function cambiarCantidad(id, cambio) {
+    const prod = carrito.find(item => item.id === id);
+    if (!prod) return;
+    prod.cantidad += cambio;
+    if (prod.cantidad <= 0) carrito = carrito.filter(item => item.id !== id);
+    guardarCarrito();
+    renderizarCarrito();
+    actualizarBadgeCarrito();
+}
+
+function confirmarPedido() {
+    if (carrito.length === 0) {
+        mostrarNotificacion("Tu carrito está vacío.");
+        return;
+    }
+    const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+    const puntosGanados = Math.floor(total / 10);
+    puntos += puntosGanados;
+    localStorage.setItem("puntosB2B", puntos);
+    
+    carrito = [];
+    guardarCarrito();
+    actualizarBadgeCarrito();
+    
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalCarrito"));
+    if(modalInst) modalInst.hide();
+    
+    actualizarPuntosUI();
+    mostrarNotificacion(`¡Pedido procesado con éxito! Has acumulado ${puntosGanados} puntos.`);
+}
+
+function actualizarPuntosUI() {
+    const cont = document.getElementById("puntosContenedor");
+    if(puntos > 0) {
+        document.getElementById("puntosUsuario").innerText = puntos;
+        cont.classList.remove("d-none");
+    }
+}
+
+/* =====================================================
+   COMPARADOR DE PRODUCTOS
+====================================================== */
+function toggleComparador(id, checkbox) {
+    if (checkbox.checked) {
+        if (comparador.length >= 5) {
+            checkbox.checked = false;
+            mostrarNotificacion("Máximo 5 productos para comparar.");
+            return;
+        }
+        comparador.push(id);
+    } else {
+        comparador = comparador.filter(itemId => itemId !== id);
+    }
+    document.getElementById("contadorComparar").innerText = comparador.length;
+}
+
+function abrirComparador() {
+    if (comparador.length < 2) {
+        mostrarNotificacion("Selecciona al menos 2 productos para comparar.");
+        return;
+    }
+    const items = productos.filter(p => comparador.includes(p.id));
+    const categoriaBase = items[0].categoria;
+    const mismaCategoria = items.every(p => p.categoria === categoriaBase);
+    
+    if(!mismaCategoria) {
+        mostrarNotificacion("Solo puedes comparar productos de la misma categoría.");
+        return;
+    }
+
+    const factorEstandar = 1000;
+    const itemsCalculados = items.map(p => {
+        const precioPorKiloLitro = (p.precio / p.cantidadBase) * factorEstandar;
+        const etiquetaMedida = p.medida === 'g' ? 'Kilo' : 'Litro';
+        return { ...p, precioEstandar: precioPorKiloLitro, etiquetaMedida: etiquetaMedida };
+    });
+
+    itemsCalculados.sort((a, b) => a.precioEstandar - b.precioEstandar);
+    const ganador = itemsCalculados[0];
+    const contenedor = document.getElementById("contenidoComparador");
+    contenedor.innerHTML = "";
+
+    itemsCalculados.forEach((p, index) => {
+        const esGanador = index === 0;
+        const claseGanador = esGanador ? "compare-winner" : "";
+        const badgeGanador = esGanador ? `<span class="winner-badge float-end"><i class="bi bi-check-circle"></i> Mejor Precio</span>` : "";
+        let mensajeAhorro = "";
+        
+        if (esGanador && itemsCalculados.length > 1) {
+            const diferencia = itemsCalculados[1].precioEstandar - ganador.precioEstandar;
+            mensajeAhorro = `<p class="text-success mt-2 mb-0 fw-bold"><i class="bi bi-graph-up-arrow"></i> Opción recomendada. Ahorras $${diferencia.toFixed(2)} por cada ${p.etiquetaMedida} en comparación con la segunda mejor opción.</p>`;
+        }
+
+        contenedor.innerHTML += `
+            <div class="compare-item ${claseGanador}">
+                ${badgeGanador}
+                <div class="d-flex align-items-center gap-3">
+                    <div class="fs-2">${p.icono}</div>
+                    <div>
+                        <h6 class="fw-bold mb-1">${p.nombre} <span class="text-muted fw-normal">(${p.cantidadBase}${p.medida})</span></h6>
+                        <div class="fs-5 fw-bold">$${p.precioEstandar.toFixed(2)} <span class="fs-6 text-muted fw-normal">por ${p.etiquetaMedida}</span></div>
+                        <div class="text-muted small">Precio presentación comercial: $${p.precio.toFixed(2)}</div>
+                    </div>
+                </div>
+                ${mensajeAhorro}
+            </div>
+        `;
+    });
+
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalComparador")) || new bootstrap.Modal(document.getElementById("modalComparador"));
+    modal.show();
+}
+
+/* =====================================================
+   FILTROS Y BÚSQUEDA
+====================================================== */
+function buscarProductos() {
+    const texto = document.getElementById("buscadorProductos").value.toLowerCase().trim();
+    const resultado = productos.filter(p => p.nombre.toLowerCase().includes(texto) || p.proveedor.toLowerCase().includes(texto));
+    renderizarProductos(resultado);
+}
+
+function filtrarCategoria(cat) {
+    document.getElementById("buscadorProductos").value = "";
+    if (cat === "Todos") renderizarProductos(productos);
+    else renderizarProductos(productos.filter(p => p.categoria === cat));
+    
+    document.getElementById("catalogo").scrollIntoView({ behavior: "smooth" });
+}
+
+/* =====================================================
+   MODALES AUXILIARES (RESEÑAS, LOGIN, REGISTRO, ETC)
+====================================================== */
+function abrirResenias(id) {
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalResenias")) || new bootstrap.Modal(document.getElementById("modalResenias"));
+    modal.show();
+}
+
+function enviarResenia(e) {
+    e.preventDefault();
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalResenias"));
+    if(modalInst) modalInst.hide();
+    mostrarNotificacion("Tu reseña ha sido publicada. ¡Gracias por tu opinión!");
+}
+
+function abrirLogin() {
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalLogin")) || new bootstrap.Modal(document.getElementById("modalLogin"));
+    modal.show();
+}
+
+function loginDemo(e) {
+    e.preventDefault();
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalLogin"));
+    if(modalInst) modalInst.hide();
+    mostrarNotificacion("Sesión iniciada correctamente.");
+}
+
+function abrirRegistro() {
+    const loginModal = bootstrap.Modal.getInstance(document.getElementById("modalLogin"));
+    if (loginModal) loginModal.hide();
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalRegistro")) || new bootstrap.Modal(document.getElementById("modalRegistro"));
+    modal.show();
+}
+
+function registroDemo(event) {
+    event.preventDefault();
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalRegistro"));
+    if(modalInst) modalInst.hide();
+    mostrarNotificacion("Cuenta registrada correctamente.");
+}
+
+function abrirRegistroProveedor() {
+    abrirRegistro();
+}
+
+function abrirRecuperar() {
+    const loginModal = bootstrap.Modal.getInstance(document.getElementById("modalLogin"));
+    if(loginModal) loginModal.hide();
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalRecuperar")) || new bootstrap.Modal(document.getElementById("modalRecuperar"));
+    modal.show();
+}
+
+function recuperarPassword(e) {
+    e.preventDefault();
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalRecuperar"));
+    if(modalInst) modalInst.hide();
+    mostrarNotificacion("Se ha enviado un enlace de recuperación a tu correo.");
+}
+
+function abrirContacto() {
+    const modal = bootstrap.Modal.getInstance(document.getElementById("modalContacto")) || new bootstrap.Modal(document.getElementById("modalContacto"));
+    modal.show();
+}
+
+function enviarContacto(event) {
+    event.preventDefault();
+    const modalInst = bootstrap.Modal.getInstance(document.getElementById("modalContacto"));
+    if(modalInst) modalInst.hide();
+    mostrarNotificacion("Mensaje enviado de forma exitosa.");
+}
+
+/* =====================================================
+   UTILIDADES
+====================================================== */
+function mostrarNotificacion(mensaje) {
+    const alerta = document.createElement("div");
+    alerta.style.cssText = "position:fixed; bottom:25px; right:25px; z-index:9999; background:#111; color:#fff; padding:15px 20px; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,.2);";
+    alerta.innerHTML = `<i class="bi bi-check-circle me-2"></i> ${mensaje}`;
+    document.body.appendChild(alerta);
+    setTimeout(() => alerta.remove(), 2500);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderizarProductos();
+    actualizarBadgeCarrito();
+    actualizarPuntosUI();
+});
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
