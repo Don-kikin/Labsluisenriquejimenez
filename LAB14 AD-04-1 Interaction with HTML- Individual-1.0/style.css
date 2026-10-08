@@ -1,0 +1,23 @@
+/* Estilo del cursor para indicar que los elementos son cliqueables */
+h3,
+#burger-town-trigger,
+#rice-trigger {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Resaltado opcional para ubicar fácilmente la palabra interactiva */
+#rice-trigger {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Control de dimensiones de la imagen insertada (Tarea 3) */
+.burger-img {
+  max-width: 320px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+  margin: 10px 0;
+}
