@@ -1,5 +1,93 @@
-html {
+/* Configuraciones base (Respeta la regla original y añade el color de fondo solicitado) */
+html, body {
     height: 100%;
     width: 100%;
-  }
-  
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Tarea 5: Color de fondo suave */
+    color: #333;
+}
+
+/* Tarea 3: Menú de navegación siempre presente (Sticky Nav) */
+nav {
+    position: sticky; /* Esta propiedad hace que el menú siga a la pantalla al hacer scroll */
+    top: 0;
+    background-color: #1a252f;
+    padding: 15px 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+nav li {
+    display: inline;
+    margin: 0 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+nav a:hover {
+    color: #3498db;
+}
+
+/* Contenedor principal para organizar los márgenes */
+main {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: calc(100vh - 180px); /* Evita que el footer suba si hay poco contenido */
+}
+
+/* Tarea 5: Estructura de Texto a la izquierda e Imagen a la derecha usando Flexbox */
+.contenido-flexible {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.texto-izquierdo {
+    flex: 1; /* Ocupa la mitad del espacio */
+    line-height: 1.6;
+}
+
+.imagen-derecha {
+    flex: 1; /* Ocupa la otra mitad del espacio */
+    text-align: center;
+}
+
+.imagen-derecha img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Tarea 4: Estilos del pie de página */
+footer {
+    background-color: #1a252f;
+    color: #bdc3c7;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+footer p {
+    margin: 5px 0;
+    font-size: 0.9em;
+}
